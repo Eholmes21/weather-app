@@ -11,7 +11,7 @@ import './App.css';
 export default function App() {
   const [location, setLocation] = useState<Location>(DEFAULT_LOCATION);
   const [model, setModel] = useState<WeatherModel>(WEATHER_MODELS[0]); // GFS default
-  const [isSummary, setIsSummary] = useState(false);
+  const [isSummary, setIsSummary] = useState(true);
   const [forecast, setForecast] = useState<ForecastData | null>(null);
   const [summaryData, setSummaryData] = useState<SummaryData | null>(null);
   const [loading, setLoading] = useState(false);

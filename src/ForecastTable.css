@@ -1,0 +1,221 @@
+/* ─── Forecast Wrapper ────────────────────────────────────────────────────── */
+
+.forecast-wrap {
+  position: relative;
+  margin-top: 12px;
+}
+.forecast-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.8rem;
+  z-index: 10;
+  border-radius: 8px;
+}
+.forecast-days {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ─── Day Section ────────────────────────────────────────────────────────── */
+
+.day-section {
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #3d4a59;
+  background: #171d25;
+}
+.day-title {
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #eef4fb;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Per-Day Color Palette ──────────────────────────────────────────────── */
+
+/* Day 0 – Muted Red (today) */
+.day-color-0 { border-color: #7a4545; }
+.day-color-0 .day-title { background: #5e3535; }
+.day-color-0 .hour-header-row,
+.day-color-0 .hour-header-row .row-label { background: #6b3f3f; }
+.day-color-0 .row-label { background: #3a2222; border-right-color: #5a3838; }
+
+/* Day 1 – Teal */
+.day-color-1 { border-color: #3d6b6b; }
+.day-color-1 .day-title { background: #2e5454; }
+.day-color-1 .hour-header-row,
+.day-color-1 .hour-header-row .row-label { background: #3a6363; }
+.day-color-1 .row-label { background: #1e3838; border-right-color: #345656; }
+
+/* Day 2 – Muted Purple */
+.day-color-2 { border-color: #5e4f7a; }
+.day-color-2 .day-title { background: #4a3d65; }
+.day-color-2 .hour-header-row,
+.day-color-2 .hour-header-row .row-label { background: #554874; }
+.day-color-2 .row-label { background: #2e2540; border-right-color: #4a3f62; }
+
+/* Day 3 – Olive / Moss */
+.day-color-3 { border-color: #5a6b45; }
+.day-color-3 .day-title { background: #465536; }
+.day-color-3 .hour-header-row,
+.day-color-3 .hour-header-row .row-label { background: #516341; }
+.day-color-3 .row-label { background: #2b3222; border-right-color: #495a39; }
+
+/* Day 4 – Dusty Rose */
+.day-color-4 { border-color: #7a5060; }
+.day-color-4 .day-title { background: #643e4e; }
+.day-color-4 .hour-header-row,
+.day-color-4 .hour-header-row .row-label { background: #6e4858; }
+.day-color-4 .row-label { background: #3d2530; border-right-color: #5e3e4e; }
+
+/* Day 5 – Warm Brown */
+.day-color-5 { border-color: #7a6545; }
+.day-color-5 .day-title { background: #645038; }
+.day-color-5 .hour-header-row,
+.day-color-5 .hour-header-row .row-label { background: #6e5a42; }
+.day-color-5 .row-label { background: #3d3020; border-right-color: #5e4e38; }
+
+/* Day 6 – Steel */
+.day-color-6 { border-color: #556070; }
+.day-color-6 .day-title { background: #414c5a; }
+.day-color-6 .hour-header-row,
+.day-color-6 .hour-header-row .row-label { background: #4c5766; }
+.day-color-6 .row-label { background: #282f38; border-right-color: #444f5c; }
+
+/* ─── Day Table ──────────────────────────────────────────────────────────── */
+
+.day-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 1.4rem;
+}
+
+/* Row label column: fixed width, rest share equally */
+.day-table .row-label {
+  width: 110px;
+  min-width: 110px;
+  max-width: 110px;
+  padding: 6px 10px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #c3d0e0;
+  background: #253140;
+  border-right: 1px solid #3a4654;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.row-label .unit {
+  font-weight: 400;
+  color: #8a9bb0;
+  font-size: 1rem;
+}
+
+/* ─── Hour header ────────────────────────────────────────────────────────── */
+
+/* Base hour header — colors overridden per day-color-N */
+.hour-header-row .row-label {
+  /* inherits from day-color-N */
+}
+.hour-cell {
+  padding: 6px 0;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: rgba(236, 243, 251, 0.92);
+  background: #455d77;
+  border-bottom: 1px solid #3b4f67;
+  overflow: hidden;
+}
+
+/* ─── Icon row ───────────────────────────────────────────────────────────── */
+
+.icon-row {
+  background: #171d25;
+}
+.icon-row .row-label {
+  background: inherit;
+  color: transparent;
+}
+.icon-cell {
+  padding: 4px 0;
+  text-align: center;
+  font-size: 1.6rem;
+  background: #171d25;
+  border-bottom: 1px solid #2d3846;
+  overflow: hidden;
+}
+
+/* ─── Data rows ──────────────────────────────────────────────────────────── */
+
+.data-row td {
+  border-bottom: 1px solid #2d3846;
+}
+.data-cell {
+  padding: 6px 0;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #d3ddea;
+  overflow: hidden;
+}
+
+/* Temperature color classes */
+.temp-freezing { color: #90caf9 !important; font-weight: 700; }
+.temp-cold { color: #bbdefb !important; }
+.temp-cool { color: #c8e6c9 !important; }
+.temp-warm { color: #fff9c4 !important; }
+.temp-hot { color: #ffcc80 !important; font-weight: 600; }
+.temp-extreme { color: #ef9a9a !important; font-weight: 700; }
+
+/* Rain row */
+.rain-row .data-cell {
+  font-size: 1.1rem;
+}
+
+/* Wind direction */
+.dir-cell {
+  font-size: 1.5rem;
+}
+.wind-arrow {
+  display: inline-block;
+  transition: transform 0.2s;
+  color: #b9c7d7;
+}
+
+/* Gust row */
+.gust-row .data-cell {
+  color: #becbda;
+  font-size: 1.2rem;
+}
+
+/* ─── Metadata ───────────────────────────────────────────────────────────── */
+
+.forecast-meta {
+  padding: 12px 10px 4px;
+  font-size: 1.2rem;
+  color: #8fa3b9;
+  text-align: right;
+}
+
+/* ─── States ─────────────────────────────────────────────────────────────── */
+
+.forecast-loading,
+.forecast-empty,
+.forecast-error {
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #c8d4e2;
+}
+.forecast-error {
+  color: #e29292;
+}

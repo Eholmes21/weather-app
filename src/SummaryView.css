@@ -1,0 +1,251 @@
+/* ─── Summary View: AI-powered 4-day cards ───────────────────────────────── */
+
+.summary-wrap {
+  position: relative;
+  margin-top: 12px;
+}
+
+.summary-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.8rem;
+  z-index: 10;
+  border-radius: 8px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ─── Day Card ───────────────────────────────────────────────────────────── */
+
+.summary-card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #3d4a59;
+  background: #171d25;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* ─── Per-Day Card Colors ────────────────────────────────────────────────── */
+
+.summary-card.card-color-0 {
+  border-color: #7a4545;
+}
+
+.summary-card.card-color-0 .card-header {
+  background: #5e3535;
+}
+
+.summary-card.card-color-1 {
+  border-color: #3d6b6b;
+}
+
+.summary-card.card-color-1 .card-header {
+  background: #2e5454;
+}
+
+.summary-card.card-color-2 {
+  border-color: #5e4f7a;
+}
+
+.summary-card.card-color-2 .card-header {
+  background: #4a3d65;
+}
+
+.summary-card.card-color-3 {
+  border-color: #5a6b45;
+}
+
+.summary-card.card-color-3 .card-header {
+  background: #465536;
+}
+
+/* ─── Card Header ────────────────────────────────────────────────────────── */
+
+.card-header {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.card-day-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-day-label {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #eef4fb;
+  letter-spacing: 0.02em;
+}
+
+.card-day-date {
+  font-size: 0.95rem;
+  color: rgba(238, 244, 251, 0.65);
+}
+
+.card-weather-icon {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+/* ─── Card Body ──────────────────────────────────────────────────────────── */
+
+.card-body {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+/* ─── Top Row: Temps + Stats ─────────────────────────────────────────────── */
+
+.card-top-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card-temps {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.card-high {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffcc80;
+}
+
+.card-low {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #90caf9;
+}
+
+.card-temp-label {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 2px;
+}
+
+.card-stats {
+  display: flex;
+  gap: 14px;
+  font-size: 1rem;
+  color: #b9c7d7;
+}
+
+.card-stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.card-stat-icon {
+  font-size: 1.1rem;
+}
+
+.card-stat-value {
+  font-weight: 600;
+  color: #d3ddea;
+}
+
+.card-stat-unit {
+  font-size: 0.8rem;
+  color: #8a9bb0;
+}
+
+/* ─── Rain Summary ───────────────────────────────────────────────────────── */
+
+.card-rain-summary {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #90caf9;
+  padding: 8px 12px;
+  background: rgba(144, 202, 249, 0.08);
+  border-radius: 6px;
+  border-left: 3px solid rgba(144, 202, 249, 0.4);
+}
+
+/* ─── Detail Summary ─────────────────────────────────────────────────────── */
+
+.card-detail {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #c8d4e2;
+}
+
+/* ─── Loading / Error / Empty States ─────────────────────────────────────── */
+
+.summary-loading,
+.summary-empty,
+.summary-error {
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #c8d4e2;
+}
+
+.summary-error {
+  color: #e29292;
+}
+
+.summary-loading-sub {
+  font-size: 1.1rem;
+  color: #8a9bb0;
+  margin-top: 8px;
+}
+
+/* ─── Metadata ───────────────────────────────────────────────────────────── */
+
+.summary-meta {
+  padding: 12px 10px 4px;
+  font-size: 1.2rem;
+  color: #8fa3b9;
+  text-align: right;
+}
+
+/* ─── No API Key Warning ─────────────────────────────────────────────────── */
+
+.summary-api-warning {
+  margin-bottom: 12px;
+  padding: 10px 16px;
+  background: rgba(255, 204, 128, 0.1);
+  border: 1px solid rgba(255, 204, 128, 0.3);
+  border-radius: 6px;
+  color: #ffcc80;
+  font-size: 0.95rem;
+  text-align: center;
+}

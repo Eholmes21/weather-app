@@ -1,0 +1,88 @@
+.model-selector {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.model-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #e6edf5;
+  white-space: nowrap;
+}
+
+.model-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.model-btn {
+  padding: 4px 14px;
+  border: 1px solid rgba(213, 224, 238, 0.35);
+  border-radius: 4px;
+  background: rgba(205, 219, 236, 0.12);
+  color: #edf3fb;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.model-btn:hover:not(:disabled) {
+  background: rgba(205, 219, 236, 0.22);
+  border-color: rgba(225, 235, 247, 0.62);
+}
+
+.model-btn.active {
+  background: #d9e4f2;
+  color: #1f2d40;
+  border-color: #d9e4f2;
+}
+
+.model-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.model-loading {
+  font-size: 0.8rem;
+  color: rgba(234, 241, 249, 0.75);
+  animation: pulse 1s infinite;
+}
+
+.model-info {
+  font-size: 0.75rem;
+  color: rgba(225, 236, 248, 0.72);
+  width: 100%;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Summary button accent */
+.summary-btn {
+  border-color: rgba(144, 202, 249, 0.4);
+  background: rgba(144, 202, 249, 0.08);
+}
+
+.summary-btn:hover:not(:disabled) {
+  background: rgba(144, 202, 249, 0.18);
+  border-color: rgba(144, 202, 249, 0.6);
+}
+
+.summary-btn.active {
+  background: linear-gradient(135deg, #90caf9, #a5d6a7);
+  color: #1a2a1a;
+  border-color: #90caf9;
+}

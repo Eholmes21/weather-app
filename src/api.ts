@@ -130,7 +130,7 @@ function parseForecastResponse(
 
 async function fetchAllModels(location: Location): Promise<ForecastData[]> {
   const results = await Promise.allSettled(
-    WEATHER_MODELS.map((m) => fetchForecast(m, location, 4)),
+    WEATHER_MODELS.map((m) => fetchForecast(m, location, 7)),
   );
 
   const forecasts: ForecastData[] = [];
@@ -227,7 +227,7 @@ function buildDaySummaries(
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  // Group by day (up to 4 days)
+  // Group by day (up to 7 days)
   const dayBuckets = new Map<string, ForecastHour[]>();
   const dayDates = new Map<string, Date>();
 
@@ -242,11 +242,11 @@ function buildDaySummaries(
     dayBuckets.get(key)!.push(h);
   }
 
-  // Sort days chronologically, take up to 4
+  // Sort days chronologically, take up to 7
   const sortedKeys = [...dayBuckets.keys()].sort(
     (a, b) => dayDates.get(a)!.getTime() - dayDates.get(b)!.getTime(),
   );
-  const dayKeys = sortedKeys.slice(0, 4);
+  const dayKeys = sortedKeys.slice(0, 7);
 
   return dayKeys.map((key) => {
     const hours = dayBuckets.get(key)!;

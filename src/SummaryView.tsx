@@ -8,7 +8,15 @@ interface Props {
     error: string | null;
 }
 
-const CARD_COLORS = ['card-color-0', 'card-color-1', 'card-color-2', 'card-color-3'];
+const CARD_COLORS = [
+    'card-color-0',
+    'card-color-1',
+    'card-color-2',
+    'card-color-3',
+    'card-color-4',
+    'card-color-5',
+    'card-color-6',
+];
 
 export default function SummaryView({ data, loading, error }: Props) {
     const hasApiKey = !!import.meta.env.VITE_GEMINI_API_KEY;

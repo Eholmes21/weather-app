@@ -82,6 +82,30 @@
   background: #465536;
 }
 
+.summary-card.card-color-4 {
+  border-color: #7a6a45;
+}
+
+.summary-card.card-color-4 .card-header {
+  background: #5e4f35;
+}
+
+.summary-card.card-color-5 {
+  border-color: #45557a;
+}
+
+.summary-card.card-color-5 .card-header {
+  background: #35405e;
+}
+
+.summary-card.card-color-6 {
+  border-color: #7a4563;
+}
+
+.summary-card.card-color-6 .card-header {
+  background: #5e3549;
+}
+
 /* ─── Card Header ────────────────────────────────────────────────────────── */
 
 .card-header {

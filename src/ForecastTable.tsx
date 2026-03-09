@@ -168,7 +168,7 @@ function DayTable({ day, index }: { day: DayGroup; index: number }) {
                   className="wind-arrow"
                   style={{
                     transform: h.windDirection !== null
-                      ? `rotate(${h.windDirection + 180}deg)`
+                      ? `rotate(${h.windDirection}deg)`
                       : undefined,
                     opacity: h.windDirection !== null ? 1 : 0.2,
                   }}

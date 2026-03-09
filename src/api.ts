@@ -531,6 +531,12 @@ function describeRainTiming(hours: ForecastHour[], totalRain: number): { summary
   };
 }
 
+function degreesToCardinal(degrees: number): string {
+  const dirs = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+  const val = Math.round((degrees / 22.5) + 0.5);
+  return dirs[(val % 16)];
+}
+
 function buildFallback(
   days: DayWithoutAI[],
   allPeriodStats: PeriodStats[][],
@@ -543,7 +549,8 @@ function buildFallback(
     const rainInfo = describeRainTiming(d.hours, d.totalRain);
     parts.push(rainInfo.detail);
 
-    parts.push(`Winds will average around ${d.avgWindSpeed} mph${d.avgWindGusts > d.avgWindSpeed + 5 ? ` with gusts up to ${d.avgWindGusts} mph` : ''}.`);
+    const dirStr = degreesToCardinal(d.avgWindDirection);
+    parts.push(`Winds will average around ${d.avgWindSpeed} mph${d.avgWindGusts > d.avgWindSpeed + 5 ? ` with gusts up to ${d.avgWindGusts} mph` : ''}, coming from the ${dirStr}.`);
     if (ps[0].highTemp - ps[2].lowTemp > 20) {
       parts.push(`Big temperature swing today — dress in layers.`);
     }

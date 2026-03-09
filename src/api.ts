@@ -147,6 +147,21 @@ function avg(nums: number[]): number {
   return nums.reduce((a, b) => a + b, 0) / nums.length;
 }
 
+function avgWindDirection(dirs: number[]): number {
+  if (dirs.length === 0) return 0;
+  let sumSin = 0;
+  let sumCos = 0;
+  for (const dir of dirs) {
+    const rad = (dir * Math.PI) / 180;
+    sumSin += Math.sin(rad);
+    sumCos += Math.cos(rad);
+  }
+  const avgRad = Math.atan2(sumSin / dirs.length, sumCos / dirs.length);
+  let avgDir = (avgRad * 180) / Math.PI;
+  if (avgDir < 0) avgDir += 360;
+  return Math.round(avgDir);
+}
+
 function blendForecasts(forecasts: ForecastData[]): ForecastHour[] {
   // Separate models by priority tier
   const highPriority = forecasts.filter(
@@ -199,7 +214,7 @@ function blendForecasts(forecasts: ForecastData[]): ForecastHour[] {
       rain: rains.length > 0 ? Math.round(avg(rains) * 1000) / 1000 : null,
       windSpeed: winds.length > 0 ? Math.round(avg(winds) * 10) / 10 : null,
       windGusts: gusts.length > 0 ? Math.round(avg(gusts) * 10) / 10 : null,
-      windDirection: dirs.length > 0 ? Math.round(avg(dirs)) : null,
+      windDirection: dirs.length > 0 ? avgWindDirection(dirs) : null,
       weatherCode: codes.length > 0 ? mostFrequent(codes) : null,
     });
   }
@@ -261,6 +276,7 @@ function buildDaySummaries(
     const rains = hours.map((h) => h.rain).filter((v): v is number => v !== null);
     const winds = hours.map((h) => h.windSpeed).filter((v): v is number => v !== null);
     const gusts = hours.map((h) => h.windGusts).filter((v): v is number => v !== null);
+    const dirs = hours.map((h) => h.windDirection).filter((v): v is number => v !== null);
     const codes = hours.map((h) => h.weatherCode).filter((v): v is number => v !== null);
 
     return {
@@ -270,6 +286,7 @@ function buildDaySummaries(
       lowTemp: temps.length > 0 ? Math.round(Math.min(...temps)) : 0,
       avgWindSpeed: winds.length > 0 ? Math.round(avg(winds)) : 0,
       avgWindGusts: gusts.length > 0 ? Math.round(avg(gusts)) : 0,
+      avgWindDirection: dirs.length > 0 ? avgWindDirection(dirs) : 0,
       totalRain: rains.length > 0 ? Math.round(rains.reduce((a, b) => a + b, 0) * 100) / 100 : 0,
       dominantWeatherCode: codes.length > 0 ? mostFrequent(codes) : 0,
       hours,
@@ -316,7 +333,7 @@ function computePeriodStats(hours: ForecastHour[]): PeriodStats[] {
         const hr = h.time.getHours();
         const ampm = hr < 12 ? 'AM' : 'PM';
         const displayHr = hr === 0 ? 12 : hr > 12 ? hr - 12 : hr;
-        return `${displayHr}${ampm}: ${h.temperature !== null ? Math.round(h.temperature) : '?'}°F, rain=${h.rain !== null ? h.rain.toFixed(2) : '0'}in, wind=${h.windSpeed !== null ? Math.round(h.windSpeed) : '?'}mph, gusts=${h.windGusts !== null ? Math.round(h.windGusts) : '?'}mph`;
+        return `${displayHr}${ampm}: ${h.temperature !== null ? Math.round(h.temperature) : '?'}°F, rain=${h.rain !== null ? h.rain.toFixed(2) : '0'}in, wind=${h.windSpeed !== null ? Math.round(h.windSpeed) : '?'}mph (dir: ${h.windDirection !== null ? h.windDirection : '?'}°), gusts=${h.windGusts !== null ? Math.round(h.windGusts) : '?'}mph`;
       })
       .join('; ');
 
@@ -358,7 +375,7 @@ async function generateAISummaries(
     ).join('\n');
 
     return `${d.dayLabel} (${d.date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}):
-  Overall: High ${d.highTemp}°F, Low ${d.lowTemp}°F, Total rain ${d.totalRain}in, Avg wind ${d.avgWindSpeed}mph, Gusts ${d.avgWindGusts}mph
+  Overall: High ${d.highTemp}°F, Low ${d.lowTemp}°F, Total rain ${d.totalRain}in, Avg wind ${d.avgWindSpeed}mph, Gusts ${d.avgWindGusts}mph, Avg Wind Dir ${d.avgWindDirection}°
 ${periodBlocks}`;
   });
 
@@ -373,6 +390,8 @@ For each day, provide:
    - "Winds die down after sunset, making it a nice evening to be outside."
    
    CRITICAL RAIN RULE: Look at the hourly rain data carefully. When rain is expected, you MUST say approximately WHEN — give specific time windows like "rain from around 2-5pm" or "showers starting mid-morning and tapering off by 3pm" or "light drizzle on and off between 8am and noon." NEVER just say "rain is expected" or "some rain" without saying when. If rain is scattered across the day, say something like "scattered showers throughout the day, heaviest around 1-3pm." If it's dry all day, say so clearly and move on.
+   
+   CRITICAL WIND RULE: You MUST call out the wind direction somewhere in the detail summary for EVERY single day. Give typical directions like North, South, NW, etc. Look at the average wind direction for the day (0=N, 90=E, 180=S, 270=W) or the hourly changes and mention where the wind is coming from.
    
    Focus on what MATTERS to someone planning their day: When exactly should I carry an umbrella? Is it jacket weather? Can I eat outside tonight? Will my morning run be comfortable? Is it going to be miserably hot? Highlight big temperature swings, gusty winds, rain start/stop times, and comfort level. Don't just list numbers — interpret them. If rain is intermittent, describe the pattern.
 

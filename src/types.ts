@@ -74,6 +74,7 @@ export interface BlendedDaySummary {
   detailSummary: string;      // AI-generated conversational paragraph
   avgWindSpeed: number;       // mph
   avgWindGusts: number;       // mph
+  avgWindDirection: number;   // degrees
   totalRain: number;          // inches
   dominantWeatherCode: number; // most frequent WMO code
   hours: ForecastHour[];      // blended hourly data

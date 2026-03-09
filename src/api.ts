@@ -198,15 +198,22 @@ function blendForecasts(forecasts: ForecastData[]): ForecastHour[] {
   // Blend
   const blended: ForecastHour[] = [];
   for (const ts of sortedTimes) {
-    const sources = highMap.get(ts) ?? lowMap.get(ts);
-    if (!sources || sources.length === 0) continue;
+    const highSources = highMap.get(ts) ?? [];
+    const lowSources = lowMap.get(ts) ?? [];
+    const allSources = [...highSources, ...lowSources];
 
-    const temps = sources.map((s) => s.temperature).filter((v): v is number => v !== null);
-    const rains = sources.map((s) => s.rain).filter((v): v is number => v !== null);
-    const winds = sources.map((s) => s.windSpeed).filter((v): v is number => v !== null);
-    const gusts = sources.map((s) => s.windGusts).filter((v): v is number => v !== null);
-    const dirs = sources.map((s) => s.windDirection).filter((v): v is number => v !== null);
-    const codes = sources.map((s) => s.weatherCode).filter((v): v is number => v !== null);
+    // We only use the prioritized sources (high if available, else low) for temp, rain, and weather code.
+    const prioritySources = highSources.length > 0 ? highSources : lowSources;
+    if (prioritySources.length === 0) continue;
+
+    const temps = prioritySources.map((s) => s.temperature).filter((v): v is number => v !== null);
+    const rains = prioritySources.map((s) => s.rain).filter((v): v is number => v !== null);
+    const codes = prioritySources.map((s) => s.weatherCode).filter((v): v is number => v !== null);
+
+    // Wind speed, gusts, and direction use ALL available models
+    const winds = allSources.map((s) => s.windSpeed).filter((v): v is number => v !== null);
+    const gusts = allSources.map((s) => s.windGusts).filter((v): v is number => v !== null);
+    const dirs = allSources.map((s) => s.windDirection).filter((v): v is number => v !== null);
 
     blended.push({
       time: new Date(ts),

@@ -86,3 +86,16 @@
   color: #1a2a1a;
   border-color: #90caf9;
 }
+
+/* ─── Mobile Responsiveness ──────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .model-btn {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+
+  .model-info {
+    font-size: 0.7rem;
+  }
+}

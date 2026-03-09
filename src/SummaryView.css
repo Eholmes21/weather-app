@@ -273,3 +273,56 @@
   font-size: 0.95rem;
   text-align: center;
 }
+
+/* ─── Mobile Responsiveness ──────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .card-top-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .card-temps {
+    gap: 8px;
+  }
+
+  .card-high {
+    font-size: 1.6rem;
+  }
+
+  .card-low {
+    font-size: 1.2rem;
+  }
+
+  .card-weather-icon {
+    font-size: 2rem;
+  }
+
+  .card-stats {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .card-stat {
+    font-size: 0.9rem;
+  }
+
+  .card-detail {
+    font-size: 0.95rem;
+  }
+
+  .card-header {
+    padding: 12px 14px;
+  }
+
+  .card-body {
+    padding: 14px 14px;
+    gap: 10px;
+  }
+
+  .card-rain-summary {
+    padding: 6px 10px;
+    font-size: 1rem;
+  }
+}

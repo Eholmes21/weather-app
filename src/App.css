@@ -2,13 +2,13 @@
 
 .app {
   min-height: 100vh;
-    background: #12161c;
-    color: #d9e1ea;
+  background: #12161c;
+  color: #d9e1ea;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .app-header {
-    background: #2f3f52;
+  background: #2f3f52;
   padding: 14px 20px 10px;
   display: flex;
   flex-direction: column;
@@ -27,10 +27,26 @@
   margin: 0;
   font-size: 1.3rem;
   font-weight: 700;
-    color: #eef4fb;
+  color: #eef4fb;
   white-space: nowrap;
 }
 
 .app-main {
   padding: 0 12px 24px;
+}
+
+/* ─── Mobile Responsiveness ──────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .app-header {
+    padding: 10px 14px;
+  }
+
+  .app-title {
+    font-size: 1.1rem;
+  }
+
+  .app-main {
+    padding: 0 8px 16px;
+  }
 }

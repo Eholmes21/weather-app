@@ -399,17 +399,23 @@ Respond with ONLY a JSON array of objects, one per day, in order. No markdown, n
 
 ${dayDescriptions.join('\n\n')}`;
 
-  const res = await fetch(`${GEMINI_URL}?key=${apiKey}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.6,
-        maxOutputTokens: 2000,
-      },
-    }),
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${GEMINI_URL}?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.6,
+          maxOutputTokens: 2000,
+        },
+      }),
+    });
+  } catch (err) {
+    console.warn('Gemini API network error, using fallback summaries:', err);
+    return buildFallback(days, allPeriodStats);
+  }
 
   if (!res.ok) {
     console.warn('Gemini API error, using fallback summaries:', res.status);

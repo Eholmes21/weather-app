@@ -13,7 +13,7 @@ export const WEATHER_MODELS: WeatherModel[] = [
   {
     id: 'gfs',
     label: 'GFS',
-    apiParam: 'gfs_seamless',
+    apiParam: 'gfs_global',
     maxHours: 384,
     resolution: '1h (3h after 120h)',
     description: 'Global Forecast System – NOAA global model, ~13km',
